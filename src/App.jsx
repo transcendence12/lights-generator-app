@@ -1,6 +1,4 @@
 import "./App.css";
-import { Counter } from "./components/Counter";
-import { Text } from "./components/Text";
 
 import { useState } from 'react';
 
