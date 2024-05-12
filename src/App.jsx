@@ -1,6 +1,9 @@
 import "./App.css";
+import { Text } from "./components/Text";
+import { Counter } from "./components/Counter";
 
 import { useState } from 'react';
+import { SingleLight } from "./components/SingleLight";
 
 function App() {
 
@@ -25,6 +28,7 @@ function App() {
         <Counter text={"rows"} count={value} onDecrement={handleDecrement}/>
         <Counter text={"columns"} count={value} onIncrement={handleIncrement}/>
       </nav>
+      <SingleLight />
     </div>
   );
 }
