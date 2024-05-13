@@ -2,33 +2,64 @@ import "./App.css";
 import { Text } from "./components/Text";
 import { Counter } from "./components/Counter";
 
-import { useState } from 'react';
+import { useState } from "react";
 import { SingleLight } from "./components/SingleLight";
+import { Grid } from "./components/Grid";
 
 function App() {
+  const [rows, setRows] = useState(0);
+  const [columns, setColumns] = useState(0);
 
-  const [value, setValue] = useState(0);
-
-  const handleIncrement = () => {
-    console.log("value increment", value)
-      setValue(value + 1);
+  const handleIncrementRow = () => {
+    setRows(rows + 1);
   };
 
-  const handleDecrement = () => {
-    console.log("value decrement", value)
-      if (value <= 0) {
-          return
-      }
-      setValue(value - 1)
-  }
+  const handleDecrementRow = () => {
+    if (rows <= 0) {
+      return;
+    }
+    setRows(rows - 1);
+  };
+
+  const handleIncrementColumn = () => {
+    if(columns >= 9){
+      return
+    }
+    setColumns(columns + 1);
+  };
+
+  const handleDecrementColumn = () => {
+    if (columns <= 0) {
+      return;
+    }
+    setColumns(columns - 1);
+  };
+
+  const totalLights = rows * columns;
+  const lights = Array.from({length: totalLights});
+
   return (
     <div>
       <nav className={"nav"}>
-        <Text>0 bulbs</Text>
-        <Counter text={"rows"} count={value} onDecrement={handleDecrement}/>
-        <Counter text={"columns"} count={value} onIncrement={handleIncrement}/>
+        <Text>{totalLights} bulbs</Text>
+        <Counter
+          text={"rows"}
+          count={rows}
+          onDecrement={handleDecrementRow}
+          onIncrement={handleIncrementRow}
+        />
+        <Counter
+          text={"columns"}
+          count={columns}
+          onDecrement={handleDecrementColumn}
+          onIncrement={handleIncrementColumn}
+        />
       </nav>
-      <SingleLight />
+      <Grid columns={columns}>
+        {lights.map((value, index)=>{
+          return <SingleLight key={index}/>
+        })}
+      </Grid>
     </div>
   );
 }
